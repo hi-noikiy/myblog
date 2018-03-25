@@ -45,14 +45,16 @@ export default {
       })
     },
     logout ({ commit }) {
+      commit(types.LOGOUT)
       return user.logout().then(() => {
-        commit(types.LOGOUT)
+        router.replace({ name: 'login' })
+      }).catch(e => {
         router.replace({ name: 'login' })
       })
     },
     // 将刷新的 token 保存至本地
     refreshToken ({commit}, token) {
-      commit('refreshToken', token)
+      commit(types.REFRESH_TOKEN, token)
     }
   }
 }

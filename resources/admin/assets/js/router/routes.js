@@ -6,7 +6,7 @@ const loginRouter = {
   component: resolve => require(['../pages/Login'], resolve)
 }
 
-const appRouters = [
+export const appRouters = [
   {
     path: '/',
     component: Layout,
@@ -31,4 +31,4 @@ const appRouters = [
   }
 ]
 
-export default [loginRouter, ...appRouters]
+export const routes =  [loginRouter, ...appRouters]
