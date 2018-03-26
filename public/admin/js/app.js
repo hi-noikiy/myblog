@@ -30971,12 +30971,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_iview___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_iview__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_iview_dist_styles_iview_css__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_iview_dist_styles_iview_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_iview_dist_styles_iview_css__);
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
 
 
 
@@ -30988,11 +30982,11 @@ __WEBPACK_IMPORTED_MODULE_3_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_4_ivie
 
 /* eslint-disable */
 new __WEBPACK_IMPORTED_MODULE_3_vue___default.a({
-  el: '#app',
-  render: function render(h) {
-    return h(__WEBPACK_IMPORTED_MODULE_2__App_vue___default.a);
-  },
-  router: __WEBPACK_IMPORTED_MODULE_1__router__["a" /* default */]
+    el: '#app',
+    render: function render(h) {
+        return h(__WEBPACK_IMPORTED_MODULE_2__App_vue___default.a);
+    },
+    router: __WEBPACK_IMPORTED_MODULE_1__router__["a" /* default */]
 });
 
 /***/ }),
@@ -33703,13 +33697,19 @@ if (inBrowser && window.Vue) {
 var loginRouter = {
   path: '/login',
   component: function component(resolve) {
-    return __webpack_require__.e/* require */(0).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(62)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    return __webpack_require__.e/* require */(3).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(62)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
   }
 };
 
 var appRouters = [{
   path: '/',
-  component: __WEBPACK_IMPORTED_MODULE_0__components_common_Layout_vue___default.a
+  component: __WEBPACK_IMPORTED_MODULE_0__components_common_Layout_vue___default.a,
+  children: [{
+    path: '/',
+    component: function component(resolve) {
+      return __webpack_require__.e/* require */(0).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(72)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    }
+  }]
 }];
 
 /* harmony default export */ __webpack_exports__["a"] = ([loginRouter].concat(appRouters));
@@ -69276,7 +69276,7 @@ exports = module.exports = __webpack_require__(33)(false);
 
 
 // module
-exports.push([module.i, "\n.layout[data-v-9d7b01b2] {\n  height: 100%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n", ""]);
+exports.push([module.i, "\n.layout[data-v-9d7b01b2] {\n  height: 100%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  border: 1px solid #d7dde4;\n  background: #f5f7f9;\n  position: relative;\n  border-radius: 4px;\n  overflow: hidden;\n}\n.layout-header-bar[data-v-9d7b01b2] {\n  background: #fff;\n  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .1);\n          box-shadow: 0 1px 1px rgba(0, 0, 0, .1);\n}\n.layout-logo-left[data-v-9d7b01b2] {\n  width: 90%;\n  height: 30px;\n  background: #5b6270;\n  border-radius: 3px;\n  margin: 15px auto;\n}\n.menu-icon[data-v-9d7b01b2] {\n  -webkit-transition: all .3s;\n  transition: all .3s;\n}\n.rotate-icon[data-v-9d7b01b2] {\n  -webkit-transform: rotate(-90deg);\n          transform: rotate(-90deg);\n}\n.menu-item span[data-v-9d7b01b2] {\n  display: inline-block;\n  overflow: hidden;\n  width: 69px;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  vertical-align: bottom;\n  -webkit-transition: width .2s ease .2s;\n  transition: width .2s ease .2s;\n}\n.menu-item i[data-v-9d7b01b2] {\n  -webkit-transform: translateX(0px);\n          transform: translateX(0px);\n  -webkit-transition: font-size .2s ease, -webkit-transform .2s ease;\n  transition: font-size .2s ease, -webkit-transform .2s ease;\n  transition: font-size .2s ease, transform .2s ease;\n  transition: font-size .2s ease, transform .2s ease, -webkit-transform .2s ease;\n  vertical-align: middle;\n  font-size: 16px;\n}\n.collapsed-menu span[data-v-9d7b01b2] {\n  width: 0px;\n  -webkit-transition: width .2s ease;\n  transition: width .2s ease;\n}\n.collapsed-menu i[data-v-9d7b01b2] {\n  -webkit-transform: translateX(5px);\n          transform: translateX(5px);\n  -webkit-transition: font-size .2s ease .2s, -webkit-transform .2s ease .2s;\n  transition: font-size .2s ease .2s, -webkit-transform .2s ease .2s;\n  transition: font-size .2s ease .2s, transform .2s ease .2s;\n  transition: font-size .2s ease .2s, transform .2s ease .2s, -webkit-transform .2s ease .2s;\n  vertical-align: middle;\n  font-size: 22px;\n}\n", ""]);
 
 // exports
 
@@ -69310,9 +69310,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "layout"
+  data: function data() {
+    return {
+      isCollapsed: false
+    };
+  },
+
+  computed: {
+    rotateIcon: function rotateIcon() {
+      return ['menu-icon', this.isCollapsed ? 'rotate-icon' : ''];
+    },
+    menuitemClasses: function menuitemClasses() {
+      return ['menu-item', this.isCollapsed ? 'collapsed-menu' : ''];
+    }
+  },
+  methods: {
+    collapsedSider: function collapsedSider() {
+      this.$refs.side1.toggleCollapse();
+    }
+  }
 });
 
 /***/ }),
@@ -69402,7 +69423,15 @@ var render = function() {
                     minHeight: "260px"
                   }
                 },
-                [_vm._v("\n        Content\n      ")]
+                [
+                  _c(
+                    "transition",
+                    { attrs: { prop: "fade-in" } },
+                    [_c("router-view")],
+                    1
+                  )
+                ],
+                1
               )
             ],
             1

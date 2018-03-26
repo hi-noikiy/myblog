@@ -8,7 +8,13 @@ const loginRouter = {
 const appRouters = [
   {
     path: '/',
-    component: Layout
+    component: Layout,
+    children: [
+      {
+        path: '/',
+        component: resolve => require(['../pages/Home'], resolve)
+      }
+    ]
   }
 ]
 
