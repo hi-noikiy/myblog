@@ -1463,7 +1463,7 @@ exports.default = new _vuex2.default.Store({
 /* 19 */
 /***/ (function(module, exports) {
 
-module.exports = "/admin/fonts/vendor/iview/dist/styles/ionicons.eot?2c2ae068be3b089e0a5b59abb1831550";
+module.exports = "/back/fonts/vendor/iview/dist/styles/ionicons.eot?2c2ae068be3b089e0a5b59abb1831550";
 
 /***/ }),
 /* 20 */
@@ -19479,19 +19479,19 @@ module.exports = function escape(url) {
 /* 63 */
 /***/ (function(module, exports) {
 
-module.exports = "/admin/fonts/vendor/iview/dist/styles/ionicons.ttf?24712f6c47821394fba7942fbb52c3b2";
+module.exports = "/back/fonts/vendor/iview/dist/styles/ionicons.ttf?24712f6c47821394fba7942fbb52c3b2";
 
 /***/ }),
 /* 64 */
 /***/ (function(module, exports) {
 
-module.exports = "/admin/fonts/vendor/iview/dist/styles/ionicons.woff?05acfdb568b3df49ad31355b19495d4a";
+module.exports = "/back/fonts/vendor/iview/dist/styles/ionicons.woff?05acfdb568b3df49ad31355b19495d4a";
 
 /***/ }),
 /* 65 */
 /***/ (function(module, exports) {
 
-module.exports = "/admin/fonts/vendor/iview/dist/styles/ionicons.svg?621bd386841f74e0053cb8e67f8a0604";
+module.exports = "/back/fonts/vendor/iview/dist/styles/ionicons.svg?621bd386841f74e0053cb8e67f8a0604";
 
 /***/ }),
 /* 66 */
