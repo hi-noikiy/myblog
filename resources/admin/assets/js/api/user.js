@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from '../utils/http'
 
 export default {
   login (data) {
@@ -6,5 +6,8 @@ export default {
   },
   getProfile () {
     return axios.get('/api/profile')
+  },
+  logout () {
+    return axios.post('/api/auth/logout')
   }
 }

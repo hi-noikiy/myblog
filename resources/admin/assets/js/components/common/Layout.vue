@@ -13,10 +13,11 @@
         <Header :style="{padding: 0}" class="layout-header-bar">
           <Icon @click.native="collapsedSider" :class="rotateIcon" :style="{margin: '20px 20px 0'}"
                 type="navicon-round" size="24"></Icon>
+          <Button @click.native="logout">退出</Button>
         </Header>
         <Content :style="{margin: '20px', background: '#fff', minHeight: '260px'}">
           <transition prop="fade-in">
-            <router-view></router-view>
+            <router-view />
           </transition>
         </Content>
       </Layout>
@@ -25,11 +26,15 @@
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
   export default {
     data() {
       return {
         isCollapsed: false
       }
+    },
+    created () {
+      this.$store.dispatch('profile')
     },
     computed: {
       rotateIcon() {
@@ -46,6 +51,7 @@
       }
     },
     methods: {
+      ...mapActions(['logout']),
       collapsedSider() {
         this.$refs.side1.toggleCollapse();
       }

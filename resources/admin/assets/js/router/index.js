@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import routes from './routes'
-import store from '../store'
 Vue.use(VueRouter)
 
 const router = new VueRouter({
@@ -9,14 +8,20 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
+  const token = localStorage.getItem('token')
   if (to.meta.requireAuth) {
-    if (!store.state.user.auth) {
-      next('login')
+    if (!token) {
+      next('/login')
+    } else {
+      next()
+    }
+  } else {
+    if (token) {
+      next('/')
     } else {
       next()
     }
   }
-  next()
 })
 
 export default router

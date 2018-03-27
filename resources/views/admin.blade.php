@@ -6,10 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Document</title>
-    <link rel="stylesheet" href="admin/css/app.css">
+    <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
 <div id="app"></div>
-<script src="admin/js/app.js"></script>
+<script src="js/manifest.js"></script>
+<script src="js/vendor.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>

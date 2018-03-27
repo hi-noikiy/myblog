@@ -1,17 +1,13 @@
-let mix = require('laravel-mix')
+const mix = require('laravel-mix')
+const { env } = require('minimist')(process.argv.slice(2))
+if (env && env.admin) {
+  require(`${__dirname}/webpack.admin.js`)
+  return
+}
 
-/*
- |--------------------------------------------------------------------------
- | Mix Asset Management
- |--------------------------------------------------------------------------
- |
- | Mix provides a clean, fluent API for defining some Webpack build steps
- | for your Laravel application. By default, we are compiling the Sass
- | file for the application as well as bundling up all the JS files.
- |
- */
-
-mix.js('resources/frontend/assets/js/app.js', 'public/frontend/js')
-  .js('resources/admin/assets/js/app.js', 'public/admin/js')
-  .sass('resources/frontend/assets/sass/app.scss', 'public/frontend/css')
-  .sass('resources/admin/assets/sass/app.scss', 'public/admin/css')
+mix.js('resources/frontend/assets/js/app.js', 'public/js')
+  .sass('resources/frontend/assets/sass/app.scss', 'public/css')
+  .extract(['vue'])
+if (mix.inProduction()) {
+  mix.version()
+}
