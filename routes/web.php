@@ -15,6 +15,6 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/admin', function () {
+Route::get('/root', function () {
     return view('admin');
 });
