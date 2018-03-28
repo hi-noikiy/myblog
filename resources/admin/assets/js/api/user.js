@@ -1,4 +1,4 @@
-import axios from '../utils/http'
+import axios from 'axios'
 
 export default {
   login (data) {

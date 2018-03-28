@@ -33,6 +33,8 @@ export default {
         const token = res.data.token
         commit(types.LOGIN, token)
         dispatch('profile')
+      }).catch(e => {
+        console.log(e.response)
       })
     },
     profile ({ commit }) {
