@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Document</title>
-    <link rel="stylesheet" href="{{mix('/back/css/app.css', 'back')}}">
+    <link rel="stylesheet" href="{{mix('/css/app.css', 'back')}}">
 </head>
 <body>
 <div id="app"></div>
-<script src="{{mix('/back/js/manifest.js', 'back')}}"></script>
-<script src="{{mix('/back/js/vendor.js', 'back')}}"></script>
-<script src="{{mix('/back/js/app.js', 'back')}}"></script>
+<script src="{{mix('/js/manifest.js', 'back')}}"></script>
+<script src="{{mix('/js/vendor.js', 'back')}}"></script>
+<script src="{{mix('/js/app.js', 'back')}}"></script>
 </body>
 </html>

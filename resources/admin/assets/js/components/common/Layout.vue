@@ -28,7 +28,7 @@
 <script>
   import { mapActions } from 'vuex'
   export default {
-    data() {
+    data () {
       return {
         isCollapsed: false
       }
@@ -37,13 +37,13 @@
       this.$store.dispatch('profile')
     },
     computed: {
-      rotateIcon() {
+      rotateIcon () {
         return [
           'menu-icon',
           this.isCollapsed ? 'rotate-icon' : ''
         ]
       },
-      menuitemClasses() {
+      menuitemClasses () {
         return [
           'menu-item',
           this.isCollapsed ? 'collapsed-menu' : ''
@@ -52,11 +52,11 @@
     },
     methods: {
       ...mapActions(['logout']),
-      collapsedSider() {
-        this.$refs.side1.toggleCollapse();
+      collapsedSider () {
+        this.$refs.side1.toggleCollapse()
       }
     }
-  };
+  }
 </script>
 
 <style scoped>
