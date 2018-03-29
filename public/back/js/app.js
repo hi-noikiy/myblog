@@ -19168,8 +19168,10 @@ exports.default = {
     logout: function logout(_ref3) {
       var commit = _ref3.commit;
 
+      commit(types.LOGOUT);
       return _user2.default.logout().then(function () {
-        commit(types.LOGOUT);
+        _router2.default.replace({ name: 'login' });
+      }).catch(function (e) {
         _router2.default.replace({ name: 'login' });
       });
     },
@@ -19178,7 +19180,7 @@ exports.default = {
     refreshToken: function refreshToken(_ref4, token) {
       var commit = _ref4.commit;
 
-      commit('refreshToken', token);
+      commit(types.REFRESH_TOKEN, token);
     }
   }
 };
