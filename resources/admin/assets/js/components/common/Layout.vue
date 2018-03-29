@@ -2,7 +2,7 @@
   <div class="layout">
     <Layout>
       <Sider ref="side1">
-        <side-menu />
+        <side-menu :menuList="menuList"/>
       </Sider>
       <Layout>
         <top-header />
@@ -20,6 +20,7 @@
   import { mapActions } from 'vuex'
   import SideMenu from './SideMenu'
   import TopHeader from './TopHeader'
+  import { appRouters } from '../../router/routes'
   export default {
     data () {
       return {}
@@ -33,6 +34,11 @@
     },
     methods: {
       ...mapActions(['logout'])
+    },
+    computed: {
+      menuList () {
+        return appRouters
+      }
     }
   }
 </script>

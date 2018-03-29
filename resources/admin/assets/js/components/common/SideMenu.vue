@@ -7,12 +7,12 @@
       </MenuItem>
       <Submenu v-if="item.children.length > 1" :name="item.name" :key="item.path">
         <template slot="title">
-          <Icon :type="item.icon" :size="iconSize"></Icon>
+          <Icon :type="item.icon"></Icon>
           <span class="layout-text">{{ item.title }}</span>
         </template>
         <template v-for="child in item.children">
           <MenuItem :name="child.name" :key="child.name">
-            <Icon :type="child.icon" :size="iconSize" :key="child.name"></Icon>
+            <Icon :type="child.icon" :key="child.name"></Icon>
             <span class="layout-text" :key="child.name">{{ child.title }}</span>
           </MenuItem>
         </template>
@@ -22,12 +22,12 @@
 </template>
 
 <script>
-  import { appRouters } from '../../router/routes'
   export default {
     data () {
-      return {
-        menuList: appRouters
-      }
+      return {}
+    },
+    props: {
+      menuList: Array
     }
   }
 </script>

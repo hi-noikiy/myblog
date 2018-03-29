@@ -6,22 +6,25 @@ const loginRouter = {
   component: resolve => require(['../pages/Login'], resolve)
 }
 
+export const homeRouter = {
+  name: 'home',
+  path: '/',
+  component: Layout
+}
+
 export const appRouters = [
   {
-    path: '/',
+    path: '/articles',
+    icon: 'person',
+    name: 'articles',
+    title: '内容管理',
     component: Layout,
     children: [
       {
-        name: 'home',
-        path: '/',
-        meta: {
-          requireAuth: true
-        },
-        component: resolve => require(['../pages/Home'], resolve)
-      },
-      {
-        name: 'articles',
-        path: '/articles',
+        name: 'list',
+        icon: 'person',
+        path: 'index',
+        title: '文章管理',
         meta: {
           requireAuth: true
         },
@@ -31,4 +34,8 @@ export const appRouters = [
   }
 ]
 
-export const routes =  [loginRouter, ...appRouters]
+export const routes = [
+  homeRouter,
+  loginRouter,
+  ...appRouters
+]
