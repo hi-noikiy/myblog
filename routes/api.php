@@ -22,6 +22,12 @@ Route::prefix('auth')->group(function($router) {
     $router->post('logout', 'AuthController@logout');
 });
 
-Route::middleware('refresh.token')->group(function($router) {
+Route::middleware(['refresh.token', 'auth:api', 'api'])->namespace('Api')->group(function($router) {
     $router->get('profile','UserController@profile');
+});
+
+Route::group([
+    'namespace' => 'Api'
+], function () {
+    Route::apiResource('articles', 'ArticleController');
 });
