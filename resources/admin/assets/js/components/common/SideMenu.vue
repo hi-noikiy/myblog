@@ -1,32 +1,34 @@
 <template>
-  <Menu active-name="1-1" theme="dark" width="auto" class="menu">
-    <template v-for="item in menuList">
-      <MenuItem v-if="item.children.length<=1" :name="item.children[0].name" :key="item.path">
-        <Icon :type="item.icon" :key="item.path"></Icon>
-        {{item.title}}
-      </MenuItem>
-      <Submenu v-if="item.children.length > 1" :name="item.name" :key="item.path">
-        <template slot="title">
-          <Icon :type="item.icon" :size="iconSize"></Icon>
-          <span class="layout-text">{{ item.title }}</span>
-        </template>
-        <template v-for="child in item.children">
-          <MenuItem :name="child.name" :key="child.name">
-            <Icon :type="child.icon" :size="iconSize" :key="child.name"></Icon>
-            <span class="layout-text" :key="child.name">{{ child.title }}</span>
-          </MenuItem>
-        </template>
-      </Submenu>
-    </template>
+  <Menu active-name="article_list" theme="dark" width="auto" class="menu" @on-select="changeMenu">
+    <Submenu v-for="submenu in menuList" :key="submenu.name" :name="submenu.name">
+      <template slot="title">
+        <Icon :type="submenu.icon"></Icon>
+        {{submenu.title}}
+      </template>
+      <MenuItem v-for="menu in submenu.children" :name="menu.name" :key="menu.name">{{menu.title}}</MenuItem>
+    </Submenu>
   </Menu>
 </template>
 
 <script>
-  import { appRouters } from '../../router/routes'
   export default {
-    data () {
-      return {
-        menuList: appRouters
+    props: {
+      menuList: Array
+    },
+    methods: {
+      changeMenu (name) {
+        let willpush = true
+        if (this.beforePush !== undefined) {
+          if (!this.beforePush(name)) {
+            willpush = false
+          }
+        }
+        if (willpush) {
+          this.$router.push({
+            name: name
+          })
+        }
+        this.$emit('on-change', name)
       }
     }
   }

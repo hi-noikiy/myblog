@@ -2,7 +2,7 @@
   <div class="layout">
     <Layout>
       <Sider ref="side1">
-        <side-menu />
+        <side-menu :menuList="menuList"/>
       </Sider>
       <Layout>
         <top-header />
@@ -20,6 +20,7 @@
   import { mapActions } from 'vuex'
   import SideMenu from './SideMenu'
   import TopHeader from './TopHeader'
+  import * as types from '../../store/mutation-types'
   export default {
     data () {
       return {}
@@ -31,8 +32,19 @@
     created () {
       this.$store.dispatch('profile')
     },
+    mounted () {
+      this.init()
+    },
     methods: {
-      ...mapActions(['logout'])
+      ...mapActions(['logout']),
+      init () {
+        this.$store.commit(types.UPDATE_MENULIST)
+      }
+    },
+    computed: {
+      menuList () {
+        return this.$store.state.app.menuList
+      }
     }
   }
 </script>

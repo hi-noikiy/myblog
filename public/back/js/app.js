@@ -1,4 +1,4 @@
-webpackJsonp([2],[
+webpackJsonp([4],[
 /* 0 */,
 /* 1 */
 /***/ (function(module, exports) {
@@ -1433,7 +1433,7 @@ exports.default = router;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.routes = exports.appRouters = undefined;
+exports.routes = exports.appRouters = exports.homeRouter = undefined;
 
 var _Layout = __webpack_require__(45);
 
@@ -1445,35 +1445,55 @@ var loginRouter = {
   name: 'login',
   path: '/login',
   component: function component(resolve) {
-    return __webpack_require__.e/* require */(6).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(80)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    return __webpack_require__.e/* require */(2).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(80)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
   }
 };
-
-var appRouters = exports.appRouters = [{
+var homeRouter = exports.homeRouter = {
   path: '/',
+  name: 'homeRouter',
+  redirect: 'home',
   component: _Layout2.default,
   children: [{
-    name: 'home',
-    path: '/',
+    name: 'home_index',
+    path: 'home',
     meta: {
       requireAuth: true
     },
     component: function component(resolve) {
-      return __webpack_require__.e/* require */(7).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(91)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+      return __webpack_require__.e/* require */(3).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(81)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    }
+  }]
+};
+var appRouters = exports.appRouters = [{
+  path: '/articles',
+  name: 'articles',
+  title: '内容管理',
+  component: _Layout2.default,
+  icon: 'person',
+  children: [{
+    name: 'articles_index',
+    path: 'index',
+    title: '文章列表',
+    meta: {
+      requireAuth: true
+    },
+    component: function component(resolve) {
+      __webpack_require__.e/* require */(0).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(82)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
     }
   }, {
-    name: 'articles',
-    path: '/articles',
+    name: 'article_add',
+    path: 'add',
+    title: '添加文章',
     meta: {
       requireAuth: true
     },
     component: function component(resolve) {
-      return __webpack_require__.e/* require */(5).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(81)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+      __webpack_require__.e/* require */(1).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(83)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
     }
   }]
 }];
 
-var routes = exports.routes = [loginRouter].concat(appRouters);
+var routes = exports.routes = [loginRouter, homeRouter].concat(appRouters);
 
 /***/ }),
 /* 18 */,
@@ -18902,6 +18922,12 @@ var _TopHeader = __webpack_require__(55);
 
 var _TopHeader2 = _interopRequireDefault(_TopHeader);
 
+var _mutationTypes = __webpack_require__(63);
+
+var types = _interopRequireWildcard(_mutationTypes);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
@@ -18916,8 +18942,20 @@ exports.default = {
   created: function created() {
     this.$store.dispatch('profile');
   },
+  mounted: function mounted() {
+    this.init();
+  },
 
-  methods: _extends({}, (0, _vuex.mapActions)(['logout']))
+  methods: _extends({}, (0, _vuex.mapActions)(['logout']), {
+    init: function init() {
+      this.$store.commit(types.UPDATE_MENULIST);
+    }
+  }),
+  computed: {
+    menuList: function menuList() {
+      return this.$store.state.app.menuList;
+    }
+  }
 };
 
 /***/ }),
@@ -19021,38 +19059,40 @@ exports.push([module.i, "\n.menu-icon {\n  -webkit-transition: all .3s;\n  trans
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-var _routes = __webpack_require__(17);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 exports.default = {
-  data: function data() {
-    return {
-      menuList: _routes.appRouters
-    };
+  props: {
+    menuList: Array
+  },
+  methods: {
+    changeMenu: function changeMenu(name) {
+      var willpush = true;
+      if (this.beforePush !== undefined) {
+        if (!this.beforePush(name)) {
+          willpush = false;
+        }
+      }
+      if (willpush) {
+        this.$router.push({
+          name: name
+        });
+      }
+      this.$emit('on-change', name);
+    }
   }
-}; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+};
 
 /***/ }),
 /* 54 */
@@ -19066,72 +19106,35 @@ var render = function() {
     "Menu",
     {
       staticClass: "menu",
-      attrs: { "active-name": "1-1", theme: "dark", width: "auto" }
+      attrs: { "active-name": "article_list", theme: "dark", width: "auto" },
+      on: { "on-select": _vm.changeMenu }
     },
-    [
-      _vm._l(_vm.menuList, function(item) {
-        return [
-          item.children.length <= 1
-            ? _c(
-                "MenuItem",
-                { key: item.path, attrs: { name: item.children[0].name } },
-                [
-                  _c("Icon", { key: item.path, attrs: { type: item.icon } }),
-                  _vm._v("\n      " + _vm._s(item.title) + "\n    ")
-                ],
-                1
-              )
-            : _vm._e(),
+    _vm._l(_vm.menuList, function(submenu) {
+      return _c(
+        "Submenu",
+        { key: submenu.name, attrs: { name: submenu.name } },
+        [
+          _c(
+            "template",
+            { slot: "title" },
+            [
+              _c("Icon", { attrs: { type: submenu.icon } }),
+              _vm._v("\n      " + _vm._s(submenu.title) + "\n    ")
+            ],
+            1
+          ),
           _vm._v(" "),
-          item.children.length > 1
-            ? _c(
-                "Submenu",
-                { key: item.path, attrs: { name: item.name } },
-                [
-                  _c(
-                    "template",
-                    { slot: "title" },
-                    [
-                      _c("Icon", {
-                        attrs: { type: item.icon, size: _vm.iconSize }
-                      }),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "layout-text" }, [
-                        _vm._v(_vm._s(item.title))
-                      ])
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _vm._l(item.children, function(child) {
-                    return [
-                      _c(
-                        "MenuItem",
-                        { key: child.name, attrs: { name: child.name } },
-                        [
-                          _c("Icon", {
-                            key: child.name,
-                            attrs: { type: child.icon, size: _vm.iconSize }
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "span",
-                            { key: child.name, staticClass: "layout-text" },
-                            [_vm._v(_vm._s(child.title))]
-                          )
-                        ],
-                        1
-                      )
-                    ]
-                  })
-                ],
-                2
-              )
-            : _vm._e()
-        ]
-      })
-    ],
-    2
+          _vm._l(submenu.children, function(menu) {
+            return _c(
+              "MenuItem",
+              { key: menu.name, attrs: { name: menu.name } },
+              [_vm._v(_vm._s(menu.title))]
+            )
+          })
+        ],
+        2
+      )
+    })
   )
 }
 var staticRenderFns = []
@@ -19346,7 +19349,12 @@ var render = function() {
       _c(
         "Layout",
         [
-          _c("Sider", { ref: "side1" }, [_c("side-menu")], 1),
+          _c(
+            "Sider",
+            { ref: "side1" },
+            [_c("side-menu", { attrs: { menuList: _vm.menuList } })],
+            1
+          ),
           _vm._v(" "),
           _c(
             "Layout",
@@ -19415,13 +19423,18 @@ var _user = __webpack_require__(62);
 
 var _user2 = _interopRequireDefault(_user);
 
+var _app = __webpack_require__(101);
+
+var _app2 = _interopRequireDefault(_app);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _vue2.default.use(_vuex2.default);
 
 exports.default = new _vuex2.default.Store({
   modules: {
-    user: _user2.default
+    user: _user2.default,
+    app: _app2.default
   }
 });
 
@@ -19535,6 +19548,10 @@ var PROFILE = exports.PROFILE = 'PROFILE';
 var LOGOUT = exports.LOGOUT = 'LOGOUT';
 var REFRESH_TOKEN = exports.REFRESH_TOKEN = 'REFRESH_TOKEN';
 // auth end
+
+// app start
+var UPDATE_MENULIST = exports.UPDATE_MENULIST = 'UPDATE_MENULIST';
+// app end
 
 /***/ }),
 /* 64 */
@@ -19684,7 +19701,7 @@ exports.default = {
       }
       return config;
     });
-    // 自定义的 axios 响应拦截器
+
     _axios2.default.interceptors.response.use(function (response) {
       // 判断一下响应中是否有 token，如果有就直接使用此 token 替换掉本地的 token。你可以根据你的业务需求自己编写更新 token 的逻辑
       var token = response.headers.authorization;
@@ -20282,6 +20299,58 @@ module.exports = function (css) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 79 */,
+/* 80 */,
+/* 81 */,
+/* 82 */,
+/* 83 */,
+/* 84 */,
+/* 85 */,
+/* 86 */,
+/* 87 */,
+/* 88 */,
+/* 89 */,
+/* 90 */,
+/* 91 */,
+/* 92 */,
+/* 93 */,
+/* 94 */,
+/* 95 */,
+/* 96 */,
+/* 97 */,
+/* 98 */,
+/* 99 */,
+/* 100 */,
+/* 101 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _mutationTypes = __webpack_require__(63);
+
+var types = _interopRequireWildcard(_mutationTypes);
+
+var _routes = __webpack_require__(17);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+exports.default = {
+  state: {
+    menuList: []
+  },
+  mutations: _defineProperty({}, types.UPDATE_MENULIST, function (state) {
+    state.menuList = _routes.appRouters;
+  })
+};
 
 /***/ })
 ],[20]);

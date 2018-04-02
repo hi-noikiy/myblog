@@ -15,7 +15,7 @@
         }
         return config
       })
-// 自定义的 axios 响应拦截器
+
       axios.interceptors.response.use((response) => {
         // 判断一下响应中是否有 token，如果有就直接使用此 token 替换掉本地的 token。你可以根据你的业务需求自己编写更新 token 的逻辑
         var token = response.headers.authorization
