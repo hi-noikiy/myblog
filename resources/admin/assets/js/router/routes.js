@@ -50,5 +50,4 @@ export const appRouters = [
     ]
   }
 ]
-
 export const routes = [loginRouter, homeRouter, ...appRouters]
